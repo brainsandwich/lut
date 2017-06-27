@@ -11,14 +11,10 @@
 
 import json, os, sys, subprocess
 
-def log(msg):
-	print msg
-	sys.stdout.flush()
-
 # init
 config_path = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else 'deps.json')
-log('> Deps fetcher 1.0')
-log('> Configuration file : ' + config_path)
+print('> Deps fetcher 1.0')
+print('> Configuration file : ' + config_path)
 if not os.path.exists(config_path):
 	sys.exit('! No config found ! Aborting ...')
 
@@ -29,14 +25,15 @@ config_file.close()
 
 # create dir
 deps_path = os.path.abspath(config['path'] if 'path' in config else 'external')
-log('> Installing dependencies in ' + deps_path + ' ...')
+print('> Installing dependencies in ' + deps_path + ' ...')
 if not os.path.exists(deps_path):
     os.makedirs(deps_path)
 
 # clone packages (assume all git for now)
 for package in config['packages']:
+	sys.stdout.flush()
 	name = package['name']
-	log('> Fetching package ' + name)
+	print('> Fetching package ' + name)
 
 	# if origin is not a url, it's a filepath and
 	# we need its absolute value
