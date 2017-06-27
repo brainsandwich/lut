@@ -33,7 +33,8 @@ if not os.path.exists(deps_path):
 for package in config['packages']:
 	sys.stdout.flush()
 	name = package['name']
-	print('> Fetching package ' + name)
+	repo_dir = os.path.join(deps_path, name)
+	print('> Fetching package ' + name + ' in ' + repo_dir)
 
 	# if origin is not a url, it's a filepath and
 	# we need its absolute value
@@ -46,7 +47,6 @@ for package in config['packages']:
 	branch = package['branch'] if 'branch' in package else ''
 
 	# init repo in repo_dir
-	repo_dir = os.path.join(deps_path, name)
 	if not os.path.exists(repo_dir):
 		os.makedirs(repo_dir)
 		subprocess.call(['git', 'init', repo_dir])
