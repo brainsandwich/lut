@@ -9,7 +9,7 @@
 		},
 		{
 			"name" : "gl3w",
-			"version" : "master",
+			"branch" : "master",
 			"origin" : "https://github.com/skaslev/gl3w.git"
 		},
 		{
@@ -24,7 +24,7 @@
 		},
 		{
 			"name" : "lut",
-			"version" : "master",
+			"branch" : "master",
 			"origin" : "../lut"
 		}
 	]
