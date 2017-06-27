@@ -1,5 +1,7 @@
 #pragma once
 
+#include "utility.hpp"
+
 #include <fmt/format.h>
 
 namespace lut {

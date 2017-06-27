@@ -1,5 +1,9 @@
 #pragma once
 
+#include <random>
+#include <sstream>
+#include <iomanip>
+
 namespace lut {
 	struct UUID {
 		static const std::size_t size = 16;

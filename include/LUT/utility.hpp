@@ -1,5 +1,9 @@
 #pragma once
 
+#include <string>
+#include <ctime>
+#include <vector>
+
 namespace lut {
 	std::string timestr() {
 		time_t rawtime;
@@ -21,7 +25,7 @@ namespace lut {
 			if (newpos == std::string::npos)
 				return result;
 
-			*out++ = input.substr(pos, newpos);
+			result.push_back(input.substr(pos, newpos));
 			pos = newpos + 1;
 		}
 		return result;
