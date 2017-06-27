@@ -1,0 +1,31 @@
+{
+	"path" : "external",
+	"packages" :
+	[
+		{
+			"name" : "glfw",
+			"version" : "3.2.1",
+			"origin" : "https://github.com/glfw/glfw.git"
+		},
+		{
+			"name" : "gl3w",
+			"version" : "master",
+			"origin" : "https://github.com/skaslev/gl3w.git"
+		},
+		{
+			"name" : "glm",
+			"version" : "0.9.8.4",
+			"origin" : "https://github.com/g-truc/glm.git"
+		},
+		{
+			"name" : "fmt",
+			"version" : "3.0.2",
+			"origin" : "https://github.com/fmtlib/fmt.git"
+		},
+		{
+			"name" : "lut",
+			"version" : "master",
+			"origin" : "../lut"
+		}
+	]
+}
