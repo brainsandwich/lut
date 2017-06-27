@@ -18,9 +18,9 @@ namespace lut {
 
 			LogFileWrapper();
 			~LogFileWrapper();
-		}
+		};
 
-		extern const lfw;
+		extern const LogFileWrapper lfw;
 		extern uint32_t loglevel;
 		extern bool logtoconsole;
 	}
