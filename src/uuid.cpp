@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LUT/uuid.hpp"
+#include "LUT/utility.hpp"
 
 #include <random>
 #include <sstream>
@@ -8,7 +9,7 @@
 
 namespace lut {
 
-	static UUID UUID::random() {
+	UUID UUID::random() {
 		std::random_device engine;
 		const std::size_t rs = sizeof(unsigned int);
 
@@ -19,8 +20,6 @@ namespace lut {
 		}
 		return result;
 	}
-	
-	uint8_t data[size];
 
 	UUID::UUID() {
 		*this = Null;
