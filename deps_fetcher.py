@@ -12,7 +12,8 @@
 import json, os, sys, subprocess
 
 # init
-config_path = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else 'deps.json')
+script_path = os.path.dirname(os.path.realpath(__file__))
+config_path = os.path.join(script_path, sys.argv[1] if len(sys.argv) > 1 else 'deps.json')
 print('> Deps fetcher 1.0')
 print('> Configuration file : ' + config_path)
 if not os.path.exists(config_path):
@@ -24,7 +25,7 @@ config = json.loads(config_file.read())
 config_file.close()
 
 # create dir
-deps_path = os.path.abspath(config['path'] if 'path' in config else 'external')
+deps_path = os.path.join(script_path, config['path'] if 'path' in config else 'external')
 print('> Installing dependencies in ' + deps_path + ' ...')
 if not os.path.exists(deps_path):
     os.makedirs(deps_path)
@@ -40,7 +41,7 @@ for package in config['packages']:
 	# we need its absolute value
 	origin = package['origin']
 	if not origin[:4] == 'http':
-		origin = os.path.abspath(origin)
+		origin = os.path.join(script_path, origin)
 
 	# one can either provide a version or a branch
 	version = package['version'] if 'version' in package else ''
