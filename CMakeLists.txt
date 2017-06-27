@@ -8,6 +8,14 @@ file(GLOB_RECURSE LUT_SOURCES "${PROJECT_SOURCE_DIR}/src/**.cpp")
 file(GLOB_RECURSE LUT_INCLUDES "${PROJECT_SOURCE_DIR}/include/**.hpp")
 set(LUT_INCLUDEDIR ${PROJECT_SOURCE_DIR}/include)
 
+# FETCH DEPENDENCIES
+message(STATUS "cmd: initdeps.bat")
+execute_process(COMMAND "initdeps.bat"
+	WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+	RESULT_VARIABLE fetch_result
+)
+message(STATUS "command returned ${fetch_result}")
+
 # LUT LIB
 add_library(lut ${LUT_SOURCES} ${LUT_INCLUDES})
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
