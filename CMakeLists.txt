@@ -9,8 +9,8 @@ file(GLOB_RECURSE LUT_INCLUDES "${PROJECT_SOURCE_DIR}/include/**.hpp")
 set(LUT_INCLUDEDIR ${PROJECT_SOURCE_DIR}/include)
 
 # FETCH DEPENDENCIES
-message(STATUS "cmd: initdeps.bat")
-execute_process(COMMAND "initdeps.bat"
+message(STATUS "cmd: python deps_fetcher.py")
+execute_process(COMMAND "python" "./deps_fetcher.py"
 	WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 	RESULT_VARIABLE fetch_result
 )
