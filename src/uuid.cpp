@@ -1,5 +1,7 @@
 #pragma once
 
+#include "uuid.hpp"
+
 #include <random>
 #include <sstream>
 #include <iomanip>
