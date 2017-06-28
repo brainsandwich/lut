@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <deque>
 #include <vector>
+#include <memory>
 
 namespace lut {
 	namespace storage {
