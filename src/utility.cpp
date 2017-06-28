@@ -30,4 +30,6 @@ namespace lut {
 		}
 		return result;
 	}
+
+	void w8usr() { getc(stdin); }
 }
