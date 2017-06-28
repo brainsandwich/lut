@@ -10,12 +10,10 @@ file(GLOB_RECURSE LUT_INCLUDES "${PROJECT_SOURCE_DIR}/include/**.hpp")
 set(LUT_INCLUDEDIR ${PROJECT_SOURCE_DIR}/include)
 
 # FETCH DEPENDENCIES
-message(STATUS "cmd: python deps_fetcher.py")
-execute_process(COMMAND "python" "./deps_fetcher.py"
+execute_process(
 	WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-	RESULT_VARIABLE fetch_result
+	COMMAND python depo.py
 )
-message(STATUS "command returned ${fetch_result}")
 
 # LUT LIB
 add_library(lut ${LUT_SOURCES} ${LUT_INCLUDES})
