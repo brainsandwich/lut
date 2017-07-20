@@ -1,7 +1,7 @@
 #pragma once
 
-#include "LUT/uuid.hpp"
-#include "LUT/utility.hpp"
+#include "lut/uuid.hpp"
+#include "lut/utility.hpp"
 
 #include <random>
 #include <sstream>

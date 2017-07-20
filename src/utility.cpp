@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LUT/utility.hpp"
+#include "lut/utility.hpp"
 
 #include <ctime>
 

@@ -18,7 +18,7 @@ execute_process(
 # LUT LIB
 add_library(lut ${LUT_SOURCES} ${LUT_INCLUDES})
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set_target_properties(lut PROPERTIES FOLDER LUT/CORE)
+set_target_properties(lut PROPERTIES FOLDER lut)
 target_include_directories(lut PUBLIC ${LUT_INCLUDEDIR})
 
 # FORMAT

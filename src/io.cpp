@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LUT/io.hpp"
+#include "lut/io.hpp"
 
 namespace lut {
 
