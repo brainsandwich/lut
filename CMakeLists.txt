@@ -23,4 +23,12 @@ target_include_directories(lut PUBLIC ${LUT_INCLUDEDIR})
 
 # FORMAT
 add_subdirectory(${LUT_EXTERNALS_DIR}/fmt)
-target_link_libraries(lut fmt)
+target_link_libraries(lut PUBLIC fmt)
+
+install(TARGETS lut
+	RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+)
+
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/lut DESTINATION include FILES_MATCHING PATTERN "*.h*")
