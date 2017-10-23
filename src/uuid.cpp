@@ -1,7 +1,6 @@
 #pragma once
 
 #include "lut/uuid.hpp"
-#include "lut/utility.hpp"
 
 #include <random>
 #include <sstream>
@@ -48,7 +47,17 @@ namespace lut {
 	}
 
 	void UUID::assign(const std::string& value) {
-		std::vector<std::string> chunks = lut::split(value, '-');
+		std::vector<std::string> chunks;
+		std::size_t pos = 0;
+		while (true) {
+			std::size_t lastpos = pos;
+			pos = value.find('-', lastpos);
+			if (pos == std::string::npos)
+				break;
+
+			chunks.push_back(value.substr(lastpos, pos));
+		}
+
 		if (chunks.size() != 5
 			|| chunks[0].size() != 8
 			|| chunks[1].size() != 4
