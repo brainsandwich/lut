@@ -21,10 +21,6 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 set_target_properties(lut PROPERTIES FOLDER lut)
 target_include_directories(lut PUBLIC ${LUT_INCLUDEDIR})
 
-# FORMAT
-add_subdirectory(${LUT_EXTERNALS_DIR}/fmt)
-target_link_libraries(lut PUBLIC fmt)
-
 install(TARGETS lut
 	RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
