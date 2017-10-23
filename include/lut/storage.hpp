@@ -6,6 +6,7 @@
 #include <deque>
 #include <vector>
 #include <memory>
+#include <functional>
 
 namespace lut {
 	namespace storage {
@@ -23,6 +24,10 @@ namespace lut {
 			virtual std::size_t size() const = 0;
 			virtual bool empty() const = 0;
 			virtual bool freelist_empty() const = 0;
+
+			virtual void* get(const handle_t& handle) = 0;
+			virtual const void* get(const handle_t& handle) const = 0;
+			virtual void foreach(const std::function<void(void*)>& func) = 0;
 		};
 
 		template <typename T>
@@ -43,18 +48,24 @@ namespace lut {
 			const T& at(const handle_t& handle) const;
 			T& operator[](const handle_t& handle) { return item_set[sparse_set[handle]]; }
 			const T& operator[](const handle_t& handle) const { return item_set[sparse_set[handle]]; }
+			void* get(const handle_t& handle) override { return &item_set[sparse_set[handle]];  }
+			const void* get(const handle_t& handle) const override { return &item_set[sparse_set[handle]]; }
 
 			// Mutators
 			handle_t allocate();
-			void release(const handle_t& handle);
-			void allocate(std::size_t count, handle_t* handles);
-			void release(std::size_t count, handle_t* handles);
-			void clear() { item_set.clear(); reverse_set.clear(); }
+			void release(const handle_t& handle) override;
+			void allocate(std::size_t count, handle_t* handles) override;
+			void release(std::size_t count, handle_t* handles) override;
+			void clear() override { item_set.clear(); reverse_set.clear(); }
+			void foreach(const std::function<void(void*)>& func) override {
+				for (T& item : item_set)
+					func(&item);
+			}
 
 			// Info
-			std::size_t size() const { return item_set.size(); }
-			bool empty() const { return item_set.empty(); }
-			bool freelist_empty() const { return freelist_front == handle_null;  }
+			std::size_t size() const override { return item_set.size(); }
+			bool empty() const override { return item_set.empty(); }
+			bool freelist_empty() const override { return freelist_front == handle_null;  }
 			
 			// Iterators
 			typename item_set_t::iterator begin() { return item_set.begin(); }
@@ -122,6 +133,15 @@ namespace lut {
 					func(e);
 			}
 
+			template <typename Func> void foreach(std::type_index type, const Func& func) {
+				shelves[type].get()->foreach(func);
+			}
+
+			template <typename Func> void foreach(const Func& func) {
+				for (auto& shelf : shelves)
+					shelf.second.get()->foreach(func);
+			}
+
 			template <typename T> Shelf<T>& getshelf() {
 				auto tid = std::type_index(typeid(T));
 				if (!shelves.count(tid))
@@ -155,12 +175,18 @@ namespace lut {
 			} else {
 				handle_t outer = freelist_front;
 				handle_t& inner_handle = sparse_set[freelist_front];
-				freelist_front = inner_handle;
+				if (freelist_front == inner_handle) {
+					handle = sparse_set.size();
+					sparse_set.push_back(item_set.size());
+					freelist_front = handle_null;
+				} else {
+					freelist_front = inner_handle;
+					inner_handle = item_set.size();
+					handle = outer;
+				}
+
 				if (freelist_empty())
 					freelist_back = freelist_front;
-
-				inner_handle = item_set.size();
-				handle = outer;
 			}
 
 			const auto size = item_set.size();
